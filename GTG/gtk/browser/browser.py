@@ -21,12 +21,13 @@
 
 from webbrowser import open as openurl
 import threading
+import os
 
-from gi.repository import GObject, Gtk, Gdk
+from gi.repository import GObject, Gtk, Gdk, GLib
 
 from GTG import info
 from GTG.backends.backendsignals import BackendSignals
-from GTG.core.dirs import ICONS_DIR
+from GTG.core.dirs import ICONS_DIR, STYLES_DIR, CONFIG_DIR
 from GTG.core.search import parse_search_query, InvalidQuery
 from GTG.core.tag import SEARCH_TAG
 from GTG.core.task import Task
@@ -139,13 +140,8 @@ class TaskBrowser(GObject.GObject):
         sets gtk theme to dark or light depending on the configuration
         """
         theme_state = self.config.get("dark_theme_enable")
-        if theme_state:
-            cssProvider = Gtk.CssProvider()
-            cssProvider.load_from_path("gtk-dark.css")
-            screen = Gdk.Screen.get_default()
-            styleContext = Gtk.StyleContext()
-            styleContext.add_provider_for_screen(
-                screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+        Gtk.Settings.get_default().set_property(
+            'gtk-application-prefer-dark-theme', theme_state)
 
     def _init_widget_aliases(self):
         """

@@ -25,7 +25,7 @@ import os
 
 from gi.repository import Gtk, Gdk
 
-from GTG.core.dirs import UI_DIR
+from GTG.core.dirs import UI_DIR, STYLES_DIR
 from GTG.core.translations import _
 from GTG.tools import autostart
 from GTG.tools import shortcut
@@ -154,23 +154,14 @@ class GeneralPreferences(object):
     def on_theme_toggled(self, widget, state):
         """Toggle GTK dark Theme"""
         curstate = self.config.get("dark_theme_enable")
+        settings = Gtk.Settings.get_default()
         if curstate != self.theme_button.get_active():
             self.config.set("dark_theme_enable", not curstate)
         if self.theme_button.get_active():
-            cssProvider = Gtk.CssProvider()
-            cssProvider.load_from_path("gtk-dark.css")
-            screen = Gdk.Screen.get_default()
-            styleContext = Gtk.StyleContext()
-            styleContext.add_provider_for_screen(
-                screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+            settings.set_property('gtk-application-prefer-dark-theme', True)
             self._refresh_task_browser()
         else:
-            cssProvider = Gtk.CssProvider()
-            cssProvider.load_from_path("gtk.css")
-            screen = Gdk.Screen.get_default()
-            styleContext = Gtk.StyleContext()
-            styleContext.add_provider_for_screen(
-                screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+            settings.set_property('gtk-application-prefer-dark-theme', False)
             self._refresh_task_browser()
 
     def on_shortcut_toggled(self, widget, state):
