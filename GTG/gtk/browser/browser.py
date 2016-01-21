@@ -27,7 +27,7 @@ from gi.repository import GObject, Gtk, Gdk, GLib
 
 from GTG import info
 from GTG.backends.backendsignals import BackendSignals
-from GTG.core.dirs import ICONS_DIR, STYLES_DIR, CONFIG_DIR
+from GTG.core.dirs import ICONS_DIR, CONFIG_DIR
 from GTG.core.search import parse_search_query, InvalidQuery
 from GTG.core.tag import SEARCH_TAG
 from GTG.core.task import Task
