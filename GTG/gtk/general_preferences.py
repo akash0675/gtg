@@ -25,7 +25,7 @@ import os
 
 from gi.repository import Gtk, Gdk
 
-from GTG.core.dirs import UI_DIR, STYLES_DIR
+from GTG.core.dirs import UI_DIR
 from GTG.core.translations import _
 from GTG.tools import autostart
 from GTG.tools import shortcut
