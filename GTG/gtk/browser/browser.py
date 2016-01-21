@@ -237,6 +237,7 @@ class TaskBrowser(GObject.GObject):
         self.about.set_artists(info.ARTISTS)
         self.about.set_documenters(info.DOCUMENTERS)
         self.about.set_translator_credits(info.TRANSLATORS)
+        self.about.set_transient_for(self.window)
 
     def _init_signal_connections(self):
         """
