@@ -831,6 +831,10 @@ class TaskBrowser(GObject.GObject):
         keyname = Gdk.keyval_name(event.keyval)
         is_shift_f10 = (keyname == "F10" and
                         event.get_state() & Gdk.ModifierType.SHIFT_MASK)
+
+        is_ctrl_q = (keyname == "q" and event.get_state()
+                     & Gdk.ModifierType.CONTROL_MASK)
+
         if is_shift_f10 or keyname == "Menu":
             selected_tags = self.get_selected_tags(nospecial=True)
             selected_search = self.get_selected_search()
@@ -850,6 +854,9 @@ class TaskBrowser(GObject.GObject):
             else:
                 self.reset_cursor()
             return True
+
+        elif is_ctrl_q:
+            self.quit()
 
     def on_task_treeview_button_press_event(self, treeview, event):
         """ Pop up context menu on right mouse click in the main
@@ -878,6 +885,8 @@ class TaskBrowser(GObject.GObject):
         keyname = Gdk.keyval_name(event.keyval)
         is_shift_f10 = (keyname == "F10" and
                         event.get_state() & Gdk.ModifierType.SHIFT_MASK)
+        is_ctrl_q = (keyname == "q" and event.get_state()
+                     & Gdk.ModifierType.CONTROL_MASK)
 
         if keyname == "Delete":
             self.on_delete_tasks()
@@ -885,6 +894,9 @@ class TaskBrowser(GObject.GObject):
         elif is_shift_f10 or keyname == "Menu":
             self.taskpopup.popup(None, None, None, None, 0, event.time)
             return True
+
+        elif is_ctrl_q:
+            self.quit()
 
     def on_closed_task_treeview_button_press_event(self, treeview, event):
         if event.button == 3:
@@ -904,6 +916,8 @@ class TaskBrowser(GObject.GObject):
         keyname = Gdk.keyval_name(event.keyval)
         is_shift_f10 = (keyname == "F10" and
                         event.get_state() & Gdk.ModifierType.SHIFT_MASK)
+        is_ctrl_q = (keyname == "q" and event.get_state()
+                     & Gdk.ModifierType.CONTROL_MASK)
 
         if keyname == "Delete":
             self.on_delete_tasks()
@@ -911,6 +925,9 @@ class TaskBrowser(GObject.GObject):
         elif is_shift_f10 or keyname == "Menu":
             self.ctaskpopup.popup(None, None, None, None, 0, event.time)
             return True
+
+        elif is_ctrl_q:
+            self.quit()
 
     def on_add_task(self, widget):
         tags = [tag for tag in self.get_selected_tags() if tag.startswith('@')]
