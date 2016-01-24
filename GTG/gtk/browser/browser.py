@@ -338,6 +338,7 @@ class TaskBrowser(GObject.GObject):
         # When destroying this window, quit GTG
         self.window.connect("destroy", self.quit)
         self.window.connect("delete-event", self.quit)
+        self.window.connect('key-press-event', self.on_quit_key_press_event)
 
         # Active tasks TreeView
         self.vtree_panes['active'].connect('row-activated',
@@ -777,6 +778,14 @@ class TaskBrowser(GObject.GObject):
         """ Clear the text in quickadd field by clicking on 'clear' icon """
         if icon == Gtk.EntryIconPosition.SECONDARY:
             self.quickadd_entry.set_text('')
+
+    def on_quit_key_press_event(self, window, event):
+        keyname = Gdk.keyval_name(event.keyval)
+        is_ctrl_q = (keyname == "q" and event.get_state()
+                     & Gdk.ModifierType.CONTROL_MASK)
+
+        if is_ctrl_q:
+            self.quit()
 
     def on_tag_treeview_button_press_event(self, treeview, event):
         """
