@@ -19,7 +19,7 @@
 """
 Manager loads the prefs and launches the gtk main loop
 """
-from gi.repository import GObject, Gtk
+from gi.repository import GObject, Gtk, Gdk
 import configparser
 
 from GTG.gtk.delete_dialog import DeletionUI
@@ -85,6 +85,9 @@ class Manager(object):
 
         # Tag Editor
         self.tag_editor_dialog = None
+        #self.browser.window.set_type_hint(Gdk.WindowTypeHint.TOP_LEVEL)
+        self.preferences.window.set_transient_for(self.browser.window)
+        self.preferences.window.set_type_hint(Gdk.WindowTypeHint.UTILITY)
 
         # DBus
         DBusTaskWrapper(self.req, self)
