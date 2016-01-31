@@ -142,6 +142,7 @@ class PluginsDialog(object):
         self.dialog.set_title(_("Plugins - %s" % info.NAME))
         self.dialog.set_transient_for(self.vmanager.browser.window)
         self.dialog.set_type_hint(Gdk.WindowTypeHint.UTILITY)
+        self.dialog.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.plugin_tree = builder.get_object("PluginTree")
         self.plugin_configure = builder.get_object("plugin_configure")
         self.plugin_about = builder.get_object("PluginAboutDialog")
