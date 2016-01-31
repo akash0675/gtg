@@ -19,7 +19,7 @@
 
 """ Dialog for loading plugins """
 
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk, Pango, Gdk
 
 from GTG import info
 from GTG.core.plugins import GnomeConfig
@@ -108,7 +108,6 @@ def plugin_error_text(plugin):
 
 
 def plugin_markup(column, cell, store, iterator, self):
-
     """ Callback to set the content of a PluginTree cell.
 
     See PluginsDialog._init_plugin_tree().
@@ -132,14 +131,17 @@ def plugin_markup(column, cell, store, iterator, self):
 class PluginsDialog(object):
     """ Dialog for Plugins configuration """
 
-    def __init__(self, requester):
+    def __init__(self, requester, vmanager):
         self.req = requester
+        self.vmanager = vmanager
         self.config = self.req.get_config("plugins")
         builder = Gtk.Builder()
         builder.add_from_file(ViewConfig.PLUGINS_UI_FILE)
 
         self.dialog = builder.get_object("PluginsDialog")
         self.dialog.set_title(_("Plugins - %s" % info.NAME))
+        self.dialog.set_transient_for(self.vmanager.browser.window)
+        self.dialog.set_type_hint(Gdk.WindowTypeHint.UTILITY)
         self.plugin_tree = builder.get_object("PluginTree")
         self.plugin_configure = builder.get_object("plugin_configure")
         self.plugin_about = builder.get_object("PluginAboutDialog")
@@ -324,7 +326,6 @@ class PluginsDialog(object):
         self.plugin_about.show_all()
 
     def on_plugin_about_close(self, widget, data=None):
-
         """ Close the PluginAboutDialog. """
         self.plugin_about.hide()
         return True

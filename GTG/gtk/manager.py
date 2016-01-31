@@ -80,12 +80,12 @@ class Manager(object):
         # Preferences and Backends windows
         # Initialize  dialogs
         self.preferences = Preferences(self.req, self)
-        self.plugins = PluginsDialog(self.req)
+        self.plugins = PluginsDialog(self.req, self)
         self.edit_backends_dialog = None
 
         # Tag Editor
         self.tag_editor_dialog = None
-        
+
         # DBus
         DBusTaskWrapper(self.req, self)
         Log.debug("Manager initialization finished")
