@@ -111,6 +111,9 @@ class TaskEditor(object):
         }
         self.builder.connect_signals(dic)
         self.window = self.builder.get_object("TaskEditor")
+        self.window.set_transient_for(self.vmanager.browser.window)
+        self.window.set_type_hint(Gdk.WindowTypeHint.UTILITY)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         # Removing the Normal textview to replace it by our own
         # So don't try to change anything with glade, this is a home-made
         # widget
@@ -204,6 +207,7 @@ class TaskEditor(object):
     + RE-enable all the features so that they work properly.
     + new shortcuts for bold and italic once implemented.
     '''
+
     def init_accelerators(self):
         agr = Gtk.AccelGroup()
         self.window.add_accel_group(agr)

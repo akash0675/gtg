@@ -198,7 +198,9 @@ class TagEditor(Gtk.Window):
         self.tis_selection_changed_hid = None
         self.tag_icon_selector = None
         # Build up the window
-        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_transient_for(self.vmanager.browser.window)
+        self.set_type_hint(Gdk.WindowTypeHint.UTILITY)
+        self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_title('Edit tag')
         self.set_border_width(10)
         self.set_resizable(False)

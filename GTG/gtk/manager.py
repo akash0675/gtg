@@ -85,10 +85,7 @@ class Manager(object):
 
         # Tag Editor
         self.tag_editor_dialog = None
-        #self.browser.window.set_type_hint(Gdk.WindowTypeHint.TOP_LEVEL)
-        self.preferences.window.set_transient_for(self.browser.window)
-        self.preferences.window.set_type_hint(Gdk.WindowTypeHint.UTILITY)
-
+        
         # DBus
         DBusTaskWrapper(self.req, self)
         Log.debug("Manager initialization finished")
@@ -165,7 +162,7 @@ class Manager(object):
 
     def open_task(self, uid, thisisnew=False):
         """Open the task identified by 'uid'.
-
+        
         If a Task editor is already opened for a given task, we present it.
         Else, we create a new one.
         """

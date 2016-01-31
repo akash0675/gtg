@@ -19,7 +19,7 @@
 
 import os
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from GTG.core.dirs import UI_DIR
 from GTG.gtk.general_preferences import GeneralPreferences
@@ -49,6 +49,10 @@ class Preferences(object):
         self.add_page(GeneralPreferences(req, vmanager))
 
         self.on_sidebar_change(self.stack)
+
+        self.window.set_transient_for(vmanager.browser.window)
+        self.window.set_type_hint(Gdk.WindowTypeHint.UTILITY)
+        self.window.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
 
     def activate(self):
         """ Activate the preferences window."""
