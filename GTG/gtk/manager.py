@@ -234,7 +234,7 @@ class Manager(object):
 
     def ask_delete_tasks(self, tids):
         if not self.delete_dialog:
-            self.delete_dialog = DeletionUI(self.req)
+            self.delete_dialog = DeletionUI(self.req, self)
         finallist = self.delete_dialog.delete_tasks(tids)
         for t in finallist:
             if t.get_id() in self.opened_task:

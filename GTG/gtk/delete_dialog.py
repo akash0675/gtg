@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from GTG.core.translations import _, ngettext
 from GTG.gtk import ViewConfig
@@ -28,8 +28,9 @@ class DeletionUI(object):
 
     MAXIMUM_TIDS_TO_SHOW = 5
 
-    def __init__(self, req):
+    def __init__(self, req, vmanager):
         self.req = req
+        self.vmanager = vmanager
         self.tids_todelete = []
         # Tags which must be updated
         self.update_tags = []
@@ -123,6 +124,8 @@ class DeletionUI(object):
             label.set_text(label_text + titles + titles_suffix)
             delete_dialog = self.builder.get_object("confirm_delete")
             delete_dialog.resize(1, 1)
+            delete_dialog.set_transient_for(self.vmanager.browser.window)
+            delete_dialog.set_type_hint(Gdk.WindowTypeHint.UTILITY)
             cancel_button = self.builder.get_object("cancel")
             cancel_button.grab_focus()
             if delete_dialog.run() != 1:
